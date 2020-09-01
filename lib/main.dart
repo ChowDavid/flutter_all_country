@@ -137,6 +137,7 @@ Map<String,_Country> _getData() {
                     child : Row(
                       children: [
                         Expanded(
+                          flex: 3,
                           child: Column(
                           children: [
                             Text('${_counties[iso2].name}',style: TextStyle(fontSize: 15,color: Colors.blue)),
@@ -160,6 +161,7 @@ Map<String,_Country> _getData() {
                         ),),
 
                         Expanded(
+                          flex: 1,
                           child: Checkbox(
                             value: _counties[iso2].selected??false,
                             onChanged: (value)=>{_click(value, _counties[iso2])},
