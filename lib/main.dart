@@ -20,6 +20,7 @@ class _Country {
   String capital;
   String areaCode;
   String currency;
+  bool selected;
 
 }
 
@@ -127,6 +128,10 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  _click(_Country _country, bool value){
+    _country.selected = value;
+    setState(() {});
+  }
   @override
   void initState() {
     super.initState();
@@ -142,25 +147,37 @@ class _MyAppState extends State<MyApp> {
               itemBuilder: (context,index){
                 var iso2 = _counties.keys.elementAt(index);
                 return Card(
-                    child : Column(
+                    child : Row(
                       children: [
-                        Text('${_counties[iso2].name}',style: TextStyle(fontSize: 15,color: Colors.blue)),
-                        Wrap(
-                          children: [
-                            Text('ISO2 $iso2'),
-                            SizedBox(width: 10,),
-                            Text('ISO3 ${_counties[iso2].iso3}'),
-                          ],
+                        Expanded(
+                          flex: 5,
+                          child: Column(
+                            children: [
+                              Text('${_counties[iso2].name}',style: TextStyle(fontSize: 15,color: Colors.blue)),
+                              Wrap(
+                                children: [
+                                  Text('ISO2 $iso2'),
+                                  SizedBox(width: 10,),
+                                  Text('ISO3 ${_counties[iso2].iso3}'),
+                                ],
+                              ),
+                              Wrap(
+                                children: [
+                                  Text('Capital ${_counties[iso2].capital}'),
+                                  SizedBox(width: 5,),
+                                  Text('Area Code ${_counties[iso2].areaCode}'),
+                                  SizedBox(width: 5,),
+                                  Text('Currency ${_counties[iso2].currency}'),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        Wrap(
-                          children: [
-                            Text('Capital ${_counties[iso2].capital}'),
-                            SizedBox(width: 5,),
-                            Text('Area Code ${_counties[iso2].areaCode}'),
-                            SizedBox(width: 5,),
-                            Text('Currency ${_counties[iso2].currency}'),
-                          ],
-                        )
+                        Expanded(
+                            flex: 1,
+                            child: Checkbox(
+                                value: _counties[iso2].selected??false,
+                                onChanged: (value)=>{_click(_counties[iso2],value)})),
                       ],
                     )
                 );
